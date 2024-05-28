@@ -3,8 +3,7 @@
 Oi professor, esse é nosso projeto de Machine Learning. Basicamente é um classificador de spam para e-mails.
 
 Grupo:
-Daniel de Araújo Torres
-José Gabriel Gouveia dos Santos Silva
+Daniel de Araújo Torres e José Gabriel Gouveia dos Santos Silva
 
 # Projeto de Machine Learning
 
