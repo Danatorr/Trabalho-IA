@@ -1,0 +1,50 @@
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+
+titulos_emails = [
+    "Reunião amanhã", "Você é o vencedor!", "Atualização de senha necessária", 
+    "Convite para o evento", "Ganhe um iPhone novo!", "Confirmação de compra", 
+    "Seu boleto está disponível", "Você ganhou na loteria!", "Vaga de emprego disponível", 
+    "Atualização de política de privacidade", "Você foi selecionado!", "Sua opinião é importante", 
+    "Novo curso disponível", "Você ganhou um desconto!", "Confirmação de reserva", 
+    "Seu prêmio está esperando", "Boletim informativo", "Ganhe dinheiro rápido!", 
+    "Atualização de segurança necessária", "Confirmação de pagamento", "Você é nosso milionésimo visitante!", 
+    "Lembrete de aniversário", "Aproveite nossa oferta especial!", "Sua fatura está vencida", 
+    "Novidades da semana", "Você ganhou um prêmio!", "Re: Reunião de segunda-feira", 
+    "Seja nosso parceiro", "Você ganhou um carro novo!", "Confirmação de inscrição", 
+    "Atualização de termos de serviço", "Você ganhou uma viagem!", "Lembrete de evento", 
+    "Oferta por tempo limitado", "Você é o sortudo do dia!", "Re: Aula de amanhã", 
+    "Novo produto disponível", "Você ganhou um vale-presente!", "Confirmação de envio", 
+    "Novo artigo no blog", "Você ganhou um cruzeiro!", "Re: Jantar de sexta-feira", 
+    "Promoção de fim de semana", "Você ganhou um sorteio!", "Confirmação de cancelamento", 
+    "Atualização de produto", "Você ganhou um iPad!", "Re: Encontro de sábado", 
+    "Desconto exclusivo para você", "Você ganhou um jackpot!", "Confirmação de alteração de senha", 
+    "Novo recurso disponível", "Você ganhou um cartão-presente!", "Re: Almoço de domingo"
+]
+classificacao = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0]
+
+
+# Transformando os títulos dos e-mails em características numéricas
+vetorizador = CountVectorizer()
+caracteristicas = vetorizador.fit_transform(titulos_emails)
+
+# Dividindo os dados em conjuntos de treinamento e teste
+caracteristicas_treino, caracteristicas_teste, classificacao_treino, classificacao_teste = train_test_split(
+    caracteristicas, classificacao, test_size=0.2, random_state=42)
+
+# Treinando o modelo de Regressão Logística
+modelo = LogisticRegression()
+modelo.fit(caracteristicas_treino, classificacao_treino)
+
+# Testando o modelo
+print("Acurácia do modelo: ", modelo.score(caracteristicas_teste, classificacao_teste))
+
+# Prevendo se um novo e-mail é spam ou não
+novo_email = vetorizador.transform(["Um benefício exclusivo para um aluno como você!😀"])
+predicao = modelo.predict(novo_email)
+
+if predicao[0] == 0:
+    print("O e-mail não é spam.")
+else:
+    print("O e-mail é spam.")
