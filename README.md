@@ -1,4 +1,4 @@
-# Trabalho-IA
+# Trabalho-IA-Machine Learning
 
 Oi professor, esse é nosso projeto de Machine Learning. Basicamente é um classificador de spam para e-mails.
 
